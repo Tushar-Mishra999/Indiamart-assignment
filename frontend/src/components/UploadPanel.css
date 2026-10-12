@@ -1,0 +1,72 @@
+.upload-panel h2 {
+  margin-top: 0;
+}
+
+.upload-grid {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 1.5rem;
+  margin: 1rem 0;
+}
+
+@media (max-width: 720px) {
+  .upload-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.upload-dropzone input[type='file'] {
+  display: none;
+}
+
+.dropzone-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 220px;
+  border: 2px dashed #c6cbd4;
+  border-radius: 10px;
+  color: #6b7280;
+  cursor: pointer;
+  padding: 1rem;
+  background: #fafbfc;
+  overflow: hidden;
+}
+
+.dropzone-label:hover {
+  border-color: #2563eb;
+  color: #2563eb;
+}
+
+.preview-image {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.upload-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.upload-fields label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.upload-fields input,
+.upload-fields textarea,
+.upload-fields select {
+  font: inherit;
+  font-weight: 400;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  resize: vertical;
+}

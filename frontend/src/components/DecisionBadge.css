@@ -1,0 +1,44 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.badge-allow {
+  background: #e3f6e8;
+  color: #1a7a3d;
+}
+
+.badge-reject {
+  background: #fdeaea;
+  color: #b3261e;
+}
+
+.badge-human_review {
+  background: #fff4e0;
+  color: #9a6400;
+}
+
+.confidence {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #6b7280;
+  text-transform: capitalize;
+}
+
+.confidence-high {
+  color: #1a7a3d;
+}
+
+.confidence-medium {
+  color: #9a6400;
+}
+
+.confidence-low {
+  color: #b3261e;
+}

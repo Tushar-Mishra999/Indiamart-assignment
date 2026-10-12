@@ -1,0 +1,159 @@
+.case-view {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.result-header {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+.result-image {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid #e5e7eb;
+  background: #f4f5f7;
+}
+
+.result-summary h3 {
+  margin: 0 0 0.5rem;
+}
+
+.badge-row {
+  display: flex;
+  gap: 0.6rem;
+  align-items: center;
+  margin-bottom: 0.4rem;
+}
+
+.category-label {
+  font-weight: 600;
+  color: #374151;
+  margin: 0.2rem 0;
+}
+
+.review-status {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.review-status-pending {
+  color: #9a6400;
+}
+
+.review-status-resolved {
+  color: #1a7a3d;
+}
+
+.result-detail {
+  margin-top: 1rem;
+  border-top: 1px solid #eef0f3;
+  padding-top: 1rem;
+}
+
+.result-detail ul {
+  margin: 0.3rem 0;
+}
+
+.history-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.history-list li {
+  border-left: 3px solid #e5e7eb;
+  padding-left: 0.75rem;
+}
+
+.history-source {
+  color: #6b7280;
+  font-size: 0.8rem;
+}
+
+.chat-log {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  max-height: 320px;
+  overflow-y: auto;
+  margin: 0.8rem 0;
+  padding: 0.75rem;
+  background: #f9fafb;
+  border-radius: 8px;
+}
+
+.chat-message {
+  padding: 0.5rem 0.75rem;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+}
+
+.chat-message.chat-user {
+  align-self: flex-end;
+  background: #eaf1ff;
+  border-color: #c9ddff;
+}
+
+.chat-role {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #6b7280;
+  margin-bottom: 0.2rem;
+}
+
+.chat-message p {
+  margin: 0;
+}
+
+.chat-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.chat-form textarea {
+  font: inherit;
+  padding: 0.6rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  resize: vertical;
+}
+
+.chat-actions {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  max-width: 420px;
+}
+
+.review-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-weight: 600;
+  font-size: 0.88rem;
+}
+
+.review-form input,
+.review-form select,
+.review-form textarea {
+  font: inherit;
+  font-weight: 400;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+}

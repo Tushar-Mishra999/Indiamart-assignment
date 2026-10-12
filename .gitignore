@@ -1,0 +1,26 @@
+# Secrets
+backend/.env
+.env
+*.env.local
+
+# Python
+backend/.venv/
+__pycache__/
+*.pyc
+
+# SQLite data and uploaded images (never commit user content)
+backend/data/*.db
+backend/uploads/*
+!backend/uploads/.gitkeep
+!backend/data/.gitkeep
+
+# Node / frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Editor/OS
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
