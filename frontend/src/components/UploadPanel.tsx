@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { ChangeEvent, FormEvent } from 'react'
 import { moderateImage } from '../api'
 import type { CaseDetail, UploadPurpose } from '../types'
+import { AnalyzingBanner, Spinner } from './Loading'
 import './UploadPanel.css'
 
 const PURPOSES: { value: UploadPurpose; label: string }[] = [
@@ -118,7 +119,10 @@ export function UploadPanel({ onResult }: { onResult: (result: CaseDetail) => vo
 
       {error && <div className="error-banner">{error}</div>}
 
+      {loading && <AnalyzingBanner text="Claude is examining the image and your context…" />}
+
       <button type="submit" className="btn btn-primary" disabled={loading}>
+        {loading && <Spinner />}
         {loading ? 'Analyzing with Claude…' : 'Submit for moderation'}
       </button>
     </form>

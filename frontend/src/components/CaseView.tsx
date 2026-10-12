@@ -1,8 +1,9 @@
-import { useState } from 'react'
-import type { FormEvent } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import type { FormEvent, KeyboardEvent } from 'react'
 import { appealCase, resolveHumanReview } from '../api'
 import type { CaseDetail, Decision } from '../types'
 import { ConfidenceBadge, DecisionBadge } from './DecisionBadge'
+import { Spinner, TypingDots } from './Loading'
 import './CaseView.css'
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -31,9 +32,16 @@ export function CaseView({
   const [reviewNotes, setReviewNotes] = useState('')
   const [reviewDecision, setReviewDecision] = useState<Decision>('ALLOW')
   const [resolving, setResolving] = useState(false)
+  const chatLogRef = useRef<HTMLDivElement>(null)
 
   const isClosed = caseDetail.human_review_status === 'resolved'
   const showChat = caseDetail.decision !== 'ALLOW' || caseDetail.appeal_messages.length > 0
+
+  useEffect(() => {
+    if (chatLogRef.current) {
+      chatLogRef.current.scrollTop = chatLogRef.current.scrollHeight
+    }
+  }, [caseDetail.appeal_messages.length, sending])
 
   async function handleAppealSubmit(e: FormEvent, requestHumanReview = false) {
     e.preventDefault()
@@ -49,6 +57,13 @@ export function CaseView({
       setError(err instanceof Error ? err.message : 'Could not send your message.')
     } finally {
       setSending(false)
+    }
+  }
+
+  function handleChatKeyDown(e: KeyboardEvent<HTMLTextAreaElement>) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault()
+      handleAppealSubmit(e as unknown as FormEvent)
     }
   }
 
@@ -130,16 +145,29 @@ export function CaseView({
             Explain the context Claude may have missed. It will re-examine the image and your explanation — it
             won't automatically agree, and it won't just defend the original call.
           </p>
-          <div className="chat-log">
+          <div className="chat-log" ref={chatLogRef}>
             {caseDetail.appeal_messages.length === 0 && (
               <p className="muted small">No messages yet. Start the conversation below.</p>
             )}
             {caseDetail.appeal_messages.map((m, i) => (
-              <div key={i} className={`chat-message chat-${m.role}`}>
-                <span className="chat-role">{m.role === 'user' ? 'You' : 'Moderation AI'}</span>
-                <p>{m.content}</p>
+              <div key={i} className={`chat-row chat-row-${m.role}`}>
+                <span className={`chat-avatar chat-avatar-${m.role}`}>{m.role === 'user' ? 'You' : 'AI'}</span>
+                <div className={`chat-message chat-${m.role}`}>
+                  <p>{m.content}</p>
+                  <span className="chat-time">
+                    {new Date(m.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                  </span>
+                </div>
               </div>
             ))}
+            {sending && (
+              <div className="chat-row chat-row-assistant">
+                <span className="chat-avatar chat-avatar-assistant">AI</span>
+                <div className="chat-message chat-assistant chat-typing">
+                  <TypingDots />
+                </div>
+              </div>
+            )}
           </div>
 
           {isClosed ? (
@@ -149,12 +177,15 @@ export function CaseView({
               <textarea
                 value={chatInput}
                 onChange={(e) => setChatInput(e.target.value)}
-                placeholder="Explain why you believe this image complies with policy…"
+                onKeyDown={handleChatKeyDown}
+                placeholder="Explain why you believe this image complies with policy… (Enter to send, Shift+Enter for a new line)"
                 rows={3}
+                disabled={sending}
               />
               <div className="chat-actions">
                 <button type="submit" className="btn btn-primary" disabled={sending}>
-                  {sending ? 'Sending…' : 'Send'}
+                  {sending && <Spinner />}
+                  {sending ? 'Claude is reassessing…' : 'Send'}
                 </button>
                 <button
                   type="button"
@@ -190,6 +221,7 @@ export function CaseView({
               <textarea value={reviewNotes} onChange={(e) => setReviewNotes(e.target.value)} rows={3} required />
             </label>
             <button type="submit" className="btn btn-primary" disabled={resolving}>
+              {resolving && <Spinner />}
               {resolving ? 'Submitting…' : 'Finalize decision'}
             </button>
           </form>

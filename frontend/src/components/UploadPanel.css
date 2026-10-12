@@ -25,18 +25,19 @@
   justify-content: center;
   text-align: center;
   height: 220px;
-  border: 2px dashed #c6cbd4;
+  border: 2px dashed var(--border-strong);
   border-radius: 10px;
-  color: #6b7280;
+  color: var(--text-muted);
   cursor: pointer;
   padding: 1rem;
-  background: #fafbfc;
+  background: var(--bg-elevated-2);
   overflow: hidden;
+  transition: border-color 0.15s, color 0.15s;
 }
 
 .dropzone-label:hover {
-  border-color: #2563eb;
-  color: #2563eb;
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .preview-image {
@@ -57,7 +58,7 @@
   gap: 0.3rem;
   font-size: 0.88rem;
   font-weight: 600;
-  color: #374151;
+  color: var(--text);
 }
 
 .upload-fields input,
@@ -66,7 +67,6 @@
   font: inherit;
   font-weight: 400;
   padding: 0.5rem 0.65rem;
-  border: 1px solid #d1d5db;
   border-radius: 6px;
   resize: vertical;
 }

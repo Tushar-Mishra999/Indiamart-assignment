@@ -11,8 +11,8 @@
 }
 
 .stat-tile {
-  background: #fff;
-  border: 1px solid #e5e7eb;
+  background: var(--bg-elevated);
+  border: 1px solid var(--border);
   border-radius: 10px;
   padding: 1rem;
   display: flex;
@@ -23,12 +23,12 @@
 .stat-value {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #111827;
+  color: var(--text);
 }
 
 .stat-label {
   font-size: 0.8rem;
-  color: #6b7280;
+  color: var(--text-muted);
 }
 
 .bar-chart {
@@ -46,20 +46,21 @@
 
 .bar-label {
   font-size: 0.85rem;
-  color: #374151;
+  color: var(--text);
 }
 
 .bar-track {
-  background: #f1f2f4;
+  background: var(--bg-elevated-2);
   border-radius: 6px;
   height: 14px;
   overflow: hidden;
 }
 
 .bar-fill {
-  background: #2563eb;
+  background: var(--accent);
   height: 100%;
   border-radius: 6px;
+  transition: width 0.3s ease;
 }
 
 .bar-value {

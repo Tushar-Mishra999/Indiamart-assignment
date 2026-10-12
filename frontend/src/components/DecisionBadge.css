@@ -10,35 +10,35 @@
 }
 
 .badge-allow {
-  background: #e3f6e8;
-  color: #1a7a3d;
+  background: var(--success-bg);
+  color: var(--success-text);
 }
 
 .badge-reject {
-  background: #fdeaea;
-  color: #b3261e;
+  background: var(--danger-bg);
+  color: var(--danger-text);
 }
 
 .badge-human_review {
-  background: #fff4e0;
-  color: #9a6400;
+  background: var(--warning-bg);
+  color: var(--warning-text);
 }
 
 .confidence {
   font-size: 0.78rem;
   font-weight: 500;
-  color: #6b7280;
+  color: var(--text-muted);
   text-transform: capitalize;
 }
 
 .confidence-high {
-  color: #1a7a3d;
+  color: var(--success-text);
 }
 
 .confidence-medium {
-  color: #9a6400;
+  color: var(--warning-text);
 }
 
 .confidence-low {
-  color: #b3261e;
+  color: var(--danger-text);
 }

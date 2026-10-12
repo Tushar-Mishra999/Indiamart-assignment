@@ -9,14 +9,12 @@
   flex: 1;
   min-width: 200px;
   padding: 0.5rem 0.65rem;
-  border: 1px solid #d1d5db;
   border-radius: 6px;
   font: inherit;
 }
 
 .case-list-controls select {
   padding: 0.5rem 0.65rem;
-  border: 1px solid #d1d5db;
   border-radius: 6px;
   font: inherit;
 }
@@ -35,14 +33,15 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.75rem 1rem;
-  border: 1px solid #e5e7eb;
+  border: 1px solid var(--border);
   border-radius: 8px;
   cursor: pointer;
+  background: var(--bg-elevated-2);
   transition: border-color 0.15s;
 }
 
 .case-row:hover {
-  border-color: #2563eb;
+  border-color: var(--accent);
 }
 
 .case-row p {
