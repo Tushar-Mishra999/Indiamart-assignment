@@ -108,6 +108,40 @@ rejecting when unsure — see `docs/INTERVIEW_NOTES.md` for the reasoning behind
 - Confidence is surfaced only as `high`/`medium`/`low`, never as a numeric probability, and the system prompts
   explicitly forbid revealing hidden chain-of-thought.
 
+## Deploying to Render
+
+The repo includes a `render.yaml` Blueprint that deploys the backend as a web service and the frontend as a
+static site. Two things make this different from local dev:
+
+1. **The frontend needs to know the backend's URL.** Locally, Vite's dev proxy forwards `/api/*` to the backend,
+   but in production they're on separate Render domains. `frontend/src/api.ts` reads `VITE_API_BASE_URL` at
+   **build time** and prefixes every request with it — leave it unset for local dev, set it to the backend's
+   Render URL for the deployed frontend.
+2. **SQLite + uploaded images need a persistent disk**, or every redeploy (and every restart) wipes the
+   database and all uploaded images. Render disks require a paid plan (Starter or above) — the `render.yaml`
+   mounts one at `/var/data` and points `DATABASE_PATH`/`UPLOAD_DIR` at it.
+
+### Steps
+
+1. Push this repo to GitHub, then in the Render dashboard: **New > Blueprint**, point it at the repo. Render
+   reads `render.yaml` and proposes both services.
+2. Before the first deploy, fill in the env vars Render leaves blank (`sync: false` in the blueprint):
+   - Backend: `ANTHROPIC_API_KEY` (your real key) and `CORS_ORIGINS` (the frontend's Render URL, e.g.
+     `https://indiamart-moderation-frontend.onrender.com` — no trailing slash).
+   - Frontend: `VITE_API_BASE_URL` (the backend's Render URL, e.g.
+     `https://indiamart-moderation-backend.onrender.com`).
+   - Since each service's URL isn't known until after it's first created, deploy once, copy the two URLs from
+     the Render dashboard, paste them into the env vars above, then trigger a manual redeploy of both services
+     so the build picks them up (the frontend var is baked in at build time, so just editing the env var isn't
+     enough — it needs a new build).
+3. Confirm the backend is healthy at `https://<backend>.onrender.com/api/health` and the docs at
+   `https://<backend>.onrender.com/docs`, then open the frontend URL.
+
+Without a Blueprint, you can create the same two services manually in the dashboard — a **Web Service** for
+`backend/` (build: `pip install -r requirements.txt`, start:
+`uvicorn app.main:app --host 0.0.0.0 --port $PORT`) and a **Static Site** for `frontend/` (build:
+`npm install && npm run build`, publish directory: `dist`) — with the same env vars as above.
+
 ## What's not in this prototype
 
 See the "Limitations" section of `docs/INTERVIEW_NOTES.md` — in particular: no authentication/authorization, no

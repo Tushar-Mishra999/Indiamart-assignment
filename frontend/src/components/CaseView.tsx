@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { FormEvent, KeyboardEvent } from 'react'
-import { appealCase, resolveHumanReview } from '../api'
+import { appealCase, resolveApiUrl, resolveHumanReview } from '../api'
 import type { CaseDetail, Decision } from '../types'
 import { ConfidenceBadge, DecisionBadge } from './DecisionBadge'
 import { Spinner, TypingDots } from './Loading'
@@ -86,7 +86,7 @@ export function CaseView({
     <div className="case-view">
       <div className="card result-card">
         <div className="result-header">
-          <img src={caseDetail.image_url} alt={caseDetail.image_name} className="result-image" />
+          <img src={resolveApiUrl(caseDetail.image_url)} alt={caseDetail.image_name} className="result-image" />
           <div className="result-summary">
             <h3>{caseDetail.image_name}</h3>
             <div className="badge-row">
